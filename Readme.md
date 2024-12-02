@@ -1,13 +1,13 @@
 # Instalar dependencias
 ```sh
 nvm use 18.20
-pnpm install
+npm install
 ```
 
 # Levantar servidor
 Ejecutar
 ```sh
-pnpm run dev
+npm run dev
 ```
 
 Abrir el navegador en el puerto 5173
