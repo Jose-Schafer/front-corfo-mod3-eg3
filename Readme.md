@@ -13,6 +13,32 @@ npm run dev
 Abrir el navegador en el puerto 5173
 [http://localhost:5173/index.html](http://localhost:5173/index.html)
 
+
+
+# Como usar GIT
+
+```
+git clone https://github.com/Jose-Schafer/front-corfo-mod3-eg3.git
+```
+
+# Tareas
+## Felipe
+- 3. Programación Funcional
+    - currying, composición de funciones, y recursión para el manejo de datos de los doctores y pacientes.
+## Denisse
+- 2. Implementación de Algoritmos y Estructuras de Datos
+    - Búsqueda por especialidad
+## Pablo
+- 4. Programación Orientada a Objetos
+    - Crea una clase Doctor con subclases como Cirujano o Pediatra, aplicando encapsulación, herencia, y polimorfismo.
+## Carlos
+- 4. Programación Orientada a Objetos
+    - Implementa métodos para calcular costos de consulta, gestionar disponibilidad, etc.
+## José
+- 1. Manipulación de Datos con JSON y Simulación de API REST (1.5 puntos)
+    - Simula la obtención de datos desde una API REST y carga dinámicamente la información en la interfaz.
+
+
 # Como probar código de javascript
 
 
