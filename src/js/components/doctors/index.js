@@ -4,7 +4,8 @@ import { createDoctorHTML } from './html-builder';
 export async function loadDoctorCards(getSortAscending) {
   try {
     let response = await fetch('../../public/static/json/especialistas.json');
-    const personas = await response.json();
+    const especialistas = await response.json();
+
 
     response = await fetch('../../public/static/json/generales.json');
     const generales = await response.json();
