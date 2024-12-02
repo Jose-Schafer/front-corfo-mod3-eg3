@@ -6,6 +6,7 @@ export async function loadDoctorCards(getSortAscending) {
     let response = await fetch('../../public/static/json/especialistas.json');
     const especialistas = await response.json();
 
+
     response = await fetch('../../public/static/json/generales.json');
     const generales = await response.json();
 
