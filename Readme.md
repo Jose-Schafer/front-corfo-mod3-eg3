@@ -17,9 +17,59 @@ Abrir el navegador en el puerto 5173
 
 # Como usar GIT
 
-```
+```sh
 git clone https://github.com/Jose-Schafer/front-corfo-mod3-eg3.git
 ```
+
+## Como crear una rama
+Primero debemos pararnos sobre la rama de desarrollo
+```sh
+git checkout develop
+```
+
+Luego, crear la nueva rama
+```sh
+git checkout -b feature/<nombre>
+```
+
+## Como bajar cambios de develop
+Primero traer los cambios desde remoto (origin)
+```sh
+git pull origin/develop
+```
+
+Luego, asegúrate de estar en tu rama de trabajo.
+```sh
+git checkout feature/<nombre>
+```
+Por último, hacer un rebase de tu rama de trabajo para poder actualizar tu rama
+```sh
+git rebase develop
+```
+
+## Hacer un commit
+Una vez que tengas algunos cambios listos
+
+Agrega los cambios a staging
+```sh
+git add .
+```
+
+Commitea los cambios
+```sh
+git commit -m "<mensaje del commit>"
+```
+
+Pushea los cambios contra remoto
+```sh
+git push
+```
+
+Luego, en github.com en el reporitorio (https://github.com/Jose-Schafer/front-corfo-mod3-eg3) anda a donde sale "Pull requests". Una vez ahí, dale a la opción crear pull request.
+
+Deberás elegir tu rama, y seleccionar `develop` como la rama objetivo.
+
+Una vez tus cambios sean aprobados por alguien del equipo puedes mergear.
 
 # Tareas
 ## Felipe
