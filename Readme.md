@@ -95,3 +95,7 @@ Una vez tus cambios sean aprobados por alguien del equipo puedes mergear.
     - Clonación, fusión y recorrido de los datos JSON se pueden encontrar en la función `loadDoctorCards` en `src/js/components/doctors/index.js`
 
 ## Preguntas
+
+
+
+hola, probando el commit
