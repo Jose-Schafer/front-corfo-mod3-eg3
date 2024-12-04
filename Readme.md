@@ -10,6 +10,7 @@ Ejecutar
 npm run dev
 ```
 
+
 Abrir el navegador en el puerto 5173
 [http://localhost:5173/index.html](http://localhost:5173/index.html)
 
