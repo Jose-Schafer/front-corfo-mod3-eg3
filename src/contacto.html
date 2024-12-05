@@ -56,16 +56,26 @@
                         <input type="datetime-local" id="fechaHora" name="fecha_y_hora" class="form-control" required>
                     </div>
 
-                     <!-- Doctor List -->
+                    <!----------------------DROPDOWN DE ESPECIALISTAS Y DOCTORES----------------------------------->
+
                     <div class="dropdown mx-auto my-2">
-                        <label for="name" class="form-label">Doctor:</label>
-                        <select class="form-select" aria-labelledby="doctorDropdownButton" id="doctorDropdownMenu">
-                        <!-- Doctor options will be appended here -->
+                        <label for="specialtyDropdown" class="form-label">Especialidad:</label>
+                        <select class="form-select" id="specialtyDropdown">
+                            <!-- Opciones de especialidad llamadas dinamicamente -->
+                             <option value="todos">Busca por especialidad</option>
                         </select>
                     </div>
-                    <button class="btn btn-success" id="contactFormSendButton">
-                        Enviar
-                    </button>
+
+                    <div class="dropdown mx-auto my-2">
+                        <label for="doctorDropdownMenu" class="form-label">Doctor:</label>
+                        <select class="form-select" id="doctorDropdownMenu">
+                            <!-- Opciones de Doctor llamadas dinamicamente -->
+                             <option value="Selecciona al doctor">Busca tu Médico</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-success" id="contactFormSendButton">Enviar</button>
+
                 </form>
             </div>
 

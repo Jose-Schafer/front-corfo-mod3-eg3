@@ -1,5 +1,6 @@
 import '../scss/styles.scss'
 import { AppointmentStack, createAppointmentListItemHTML } from './components/appointments';
+import { fetchDoctorData } from './api/doctors';
 
 const appointmentStack = new AppointmentStack(renderAppointmentList);
 
