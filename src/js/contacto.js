@@ -40,76 +40,80 @@ const message = () => {
   });
 }
 
-const appointmentStack = new AppointmentStack(message);
+//const appointmentStack = new AppointmentStack(message);
 
-async function renderDoctorList() {
+// Función para cargar especialidades en el dropdown
+
+async function populateSpecialtiesDropdown() {
   try {
     const especialistasPromise = fetchDoctorData('../../public/static/json/especialistas.json');
     const generalesPromise = fetchDoctorData('../../public/static/json/generales.json');
 
     const [especialistas, generales] = await Promise.all([especialistasPromise, generalesPromise]);
 
+    // Obtener especialidades únicas
+    const allSpecialties = [...especialistas, ...generales].map(doctor => doctor.specialty);
+    const uniqueSpecialties = [...new Set(allSpecialties)];
 
-    // Merge jsons
-    const doctors = [...especialistas, ...generales]
-
-    // Doctor list
-    const container = document.getElementById("doctorDropdownMenu");
-
-    doctors.forEach((doctor) => {
-      let customDoctor = { ...doctor };
-      customDoctor = capitalizeAllAttributes(customDoctor);
-
-      const { name, specialty } = customDoctor;
-
-      const doctorListItem = createDoctorListItemHTML(name, specialty);
-      container.appendChild(doctorListItem);
-    })
+    // Agregar especialidades al dropdown
+    const specialtyDropdown = document.getElementById('specialtyDropdown');
+    uniqueSpecialties.forEach(specialty => {
+      const option = document.createElement('option');
+      option.value = specialty.toLowerCase();
+      option.textContent = specialty;
+      specialtyDropdown.appendChild(option);
+    });
   } catch (error) {
-    console.log("Error while obtaining the list of doctors:", error.message)
+    console.log("Error al cargar las especialidades:", error.message);
   }
 }
 
-async function contactFormSend(event) {
+// Función para filtrar y cargar doctores en el dropdown según la especialidad seleccionada
+async function populateDoctorsDropdown(selectedSpecialty) {
+  try {
+    const especialistasPromise = fetchDoctorData('../../public/static/json/especialistas.json');
+    const generalesPromise = fetchDoctorData('../../public/static/json/generales.json');
 
-  event.preventDefault();
-  // Get appointment details
-  const inputNombre = document.getElementById("nombre");
-  const paciente = inputNombre.value;
+    const [especialistas, generales] = await Promise.all([especialistasPromise, generalesPromise]);
 
-  const inputFechaHora = document.getElementById("fechaHora");
-  const fechaHora = inputFechaHora.value;
+    // Unir todos los doctores
+    const allDoctors = [...especialistas, ...generales];
 
-  const doctorDropdown = document.getElementById("doctorDropdownMenu");
-  const selectedDoctor = doctorDropdown.options[doctorDropdown.selectedIndex].value;
+    // Filtrar doctores según la especialidad seleccionada
+    const filteredDoctors = selectedSpecialty === 'todos'
+      ? allDoctors
+      : allDoctors.filter(doctor => doctor.specialty.toLowerCase() === selectedSpecialty);
 
-  // Extract name and specialty from the selected value
-  const [name, specialty] = selectedDoctor.split(" - ");
+    // Actualizar el dropdown de doctores
+    const doctorDropdown = document.getElementById('doctorDropdownMenu');
+    doctorDropdown.innerHTML = ''; // Limpiar opciones anteriores
 
-  // Confirmation message
-  const isConfirmed = window.confirm(`Tu cita con el doctor ${name} (${specialty}) fue agendada para ${fechaHora}. ¿Es correcto?`);
-
-  if (isConfirmed) {
-    console.log("Cita confirmada:", { name, specialty, paciente, fechaHora });
-    appointmentStack.push({ name, specialty, paciente, fechaHora });
-    renderUpcommingAppointmentList();
-  } else {
-    console.log("Cita no confirmada. Usuario canceló.");
-    return
+    filteredDoctors.forEach(doctor => {
+      const option = document.createElement('option');
+      option.value = doctor.name;
+      option.textContent = `${doctor.name} (${doctor.specialty})`;
+      doctorDropdown.appendChild(option);
+    });
+  } catch (error) {
+    console.log("Error al cargar doctores:", error.message);
   }
 }
 
-async function renderUpcommingAppointmentList() {
-  const container = document.getElementById("upcomming-appointment-list")
-  container.innerHTML = '';
+// Configurar eventos para los dropdowns
+document.addEventListener('DOMContentLoaded', async () => {
+  await populateSpecialtiesDropdown(); // Cargar especialidades inicialmente
 
-  const appointmentList = appointmentStack.getSortedStack();
-
-  appointmentList.forEach((appointment) => {
-    const appointmentItem = createUpcommingAppointmentItemHTML(appointment);
-    container.appendChild(appointmentItem);
+  // Filtrar doctores cuando se seleccione una especialidad
+  const specialtyDropdown = document.getElementById('specialtyDropdown');
+  specialtyDropdown.addEventListener('change', (event) => {
+    const selectedSpecialty = event.target.value;
+    populateDoctorsDropdown(selectedSpecialty);
   });
-}
+
+  // Cargar todos los doctores por defecto
+  populateDoctorsDropdown('todos');
+});
+
 
 document.addEventListener('DOMContentLoaded', renderDoctorList);
 document.addEventListener('DOMContentLoaded', renderUpcommingAppointmentList);
